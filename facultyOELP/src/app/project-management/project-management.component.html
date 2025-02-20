@@ -1,0 +1,55 @@
+<div class="container mt-5">
+	<div class="card shadow-lg border-0 rounded-4">
+	  <div class="card-header bg-primary text-white text-center">
+		<h3 class="mb-0">Project Listings</h3>
+	  </div>
+	  <div class="card-body p-4">
+		<table class="table table-hover text-center align-middle">
+		  <thead class="table-dark">
+			<tr>
+			  <th>ID</th>
+			  <th>Project Name</th>
+			  <th>Slots Available</th>
+			  <th>Action</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr
+			  *ngFor="let project of projects | paginate: { itemsPerPage: 5, currentPage: page }"
+			  class="table-light"
+			>
+			  <td>{{ project.projectId }}</td>
+			  <td class="fw-bold">{{ project.title }}</td>
+			  <td>
+				<span
+				  class="badge"
+				  [ngClass]="{
+					'bg-success': project.slotsAvailable > 5,
+					'bg-warning': project.slotsAvailable <= 5 && project.slotsAvailable > 0,
+					'bg-danger': project.slotsAvailable === 0
+				  }"
+				>
+				  {{ project.slotsAvailable }}
+				</span>
+			  </td>
+			  <td>
+				<button
+				  class="btn btn-outline-primary btn-sm px-3"
+				  (click)="selectProject(project)"
+				>
+				  <i class="bi bi-check-circle"></i> Select
+				</button>
+			  </td>
+			</tr>
+		  </tbody>
+		</table>
+	  </div>
+	  <div class="card-footer bg-light text-center">
+		<pagination-controls
+		  (pageChange)="page = $event"
+		  class="d-flex justify-content-center"
+		></pagination-controls>
+	  </div>
+	</div>
+  </div>
+  

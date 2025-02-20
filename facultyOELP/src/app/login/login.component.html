@@ -1,0 +1,50 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+	<div class="row w-100">
+	  <div class="col-md-6 col-lg-4 mx-auto">
+		<!-- Card for login form -->
+		<div class="card shadow p-4 rounded">
+		  <h3 class="text-center mb-4">Faculty Login</h3>
+  
+		  <!-- Login Form -->
+		  <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+			<!-- Email Field -->
+			<div class="mb-3">
+			  <label for="email" class="form-label">Email</label>
+			  <input
+				type="email"
+				class="form-control"
+				id="email"
+				placeholder="Enter your email"
+				required
+				formControlName="email"
+			  />
+			</div>
+  
+			<!-- Password Field -->
+			<div class="mb-3">
+			  <label for="password" class="form-label">Password</label>
+			  <input
+				type="password"
+				class="form-control"
+				id="password"
+				placeholder="Enter your password"
+				required
+				formControlName="password"
+			  />
+			</div>
+  
+
+
+  
+			<!-- Submit Button -->
+			<div class="text-center">
+			  <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid">
+				Login
+			  </button>
+			</div>
+		  </form>
+		</div>
+	  </div>
+	</div>
+  </div>
+  
