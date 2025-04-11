@@ -1,0 +1,104 @@
+<div class="container-fluid mt-4">
+	<div class="row">
+  
+	  <!-- Sidebar Navigation -->
+	  <div class="col-md-3 mb-3">
+		<div class="card shadow-lg border-0 rounded-4">
+		  <div class="card-body">
+			<h5 class="card-title text-center text-primary">Dashboard</h5>
+  
+			<ul class="nav flex-column nav-pills">
+			  <li class="nav-item">
+				<a class="nav-link" 
+				   [class.active]="selectedTab === 'SPA lecturer'" 
+				   role="button" 
+				   (click)="selectTab('SPA lecturer')">
+				  <i class="bi bi-folder"></i> SPA lecturer
+				</a>
+			  </li>
+  
+			 
+			  <!-- Profile Tab -->
+			  <li class="nav-item">
+				<a class="nav-link" 
+				   [class.active]="selectedTab === 'SPA student'" 
+				   role="button" 
+				   (click)="selectTab('SPA student')">
+				  <i class="bi bi-folder"></i> SPA student
+				</a>
+			  </li>
+
+			  <li class="nav-item">
+				<a class="nav-link" 
+				   [class.active]="selectedTab === 'Gale shapley -- student'" 
+				   role="button" 
+				   (click)="selectTab('Gale shapley -- student')">
+				  <i class="bi bi-folder"></i> Gale shapley -- student
+				</a>
+			  </li>
+
+			  <li class="nav-item">
+				<a class="nav-link" 
+				   [class.active]="selectedTab === 'Gale shapley -- faculty'" 
+				   role="button" 
+				   (click)="selectTab('Gale shapley -- faculty')">
+				  <i class="bi bi-folder"></i> Gale shapley -- faculty
+				</a>
+			  </li>
+
+			  <li class="nav-item">
+				<a class="nav-link" 
+				   [class.active]="selectedTab === 'preferences'" 
+				   role="button" 
+				   (click)="selectTab('preferences')">
+				  <i class="bi bi-folder"></i> preferences
+				</a>
+			  </li>
+
+			  
+
+			</ul>
+  
+		  </div>
+		</div>
+	  </div>
+  
+	  <!-- Main Content Area -->
+	  <div class="col-md-9">
+		<div class="card shadow-lg border-0 rounded-4">
+		  <div class="card-body">
+  
+			<!-- Projects Section -->
+			<div *ngIf="selectedTab === 'SPA lecturer'">
+			  <h2 class="mb-4 text-center text-secondary">SPA lecturer</h2>
+			  <app-spa-lecturer> </app-spa-lecturer>
+			</div>
+
+			<div *ngIf="selectedTab === 'SPA student'">
+				<h2 class="mb-4 text-center text-secondary">SPA student</h2>
+				<app-spa-student></app-spa-student>
+			  </div>
+
+			  <div *ngIf="selectedTab === 'Gale shapley -- student'">
+				<h2 class="mb-4 text-center text-secondary">Gale shapley -- student</h2>
+				<app-galeshapley-stud></app-galeshapley-stud>
+			  </div>
+
+			  <div *ngIf="selectedTab === 'Gale shapley -- faculty'">
+				<h2 class="mb-4 text-center text-secondary">Gale shapley -- faculty</h2>
+				<app-galeshapley-fac></app-galeshapley-fac>
+			  </div>
+
+			  <div *ngIf="selectedTab === 'preferences'">
+				<h2 class="mb-4 text-center text-secondary">Preferences</h2>
+				<app-preference></app-preference>
+			  </div>
+
+  
+		  </div>
+		</div>
+	  </div>
+  
+	</div>
+  </div>
+  

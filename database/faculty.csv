@@ -1,0 +1,11 @@
+faculty_id,FirstName,LastName,email,Phone_no,Department_id
+1,Rajesh,Sharma,rajesh.sharma@example.com,9876504321,1
+2,Pooja,Verma,pooja.verma@example.com,9123456782,2
+3,Manish,Aggarwal,manish.aggarwal@example.com,9234567893,3
+4,Anita,Gupta,anita.gupta@example.com,9345678904,4
+5,Suresh,Mehta,suresh.mehta@example.com,9456789015,5
+6,Neelam,Chopra,neelam.chopra@example.com,9567890126,1
+7,Ravi,Malhotra,ravi.malhotra@example.com,9678901237,2
+8,Sunita,Kumar,sunita.kumar@example.com,9789012348,3
+9,Ajay,Bhatt,ajay.bhatt@example.com,9890123459,4
+10,Kiran,Dubey,kiran.dubey@example.com,9901234570,5

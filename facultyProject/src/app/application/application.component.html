@@ -1,0 +1,299 @@
+
+<div class="container-fluid mt-4">
+	<div class="row">
+	  <div class="col-md-12">
+		<div class="card shadow-lg border-0 rounded-4">
+			<div *ngIf="!showApp && !pref">
+				<!-- Applications Section -->
+				<div class="card-header bg-primary text-white text-center">
+				  <h3 class="mb-0">Applications</h3>
+				</div>
+			  
+				<div class="card-body bg-light p-4">
+				  <ng-container *ngIf="applications.length > 0; else noApplications">
+					<div class="card shadow-lg border-0 rounded-4">
+					  <div class="card-body">
+						<button
+						  class="btn btn-outline-primary btn-sm px-3"
+						  (click)="setpreferencce()"
+						  [disabled]="applications.length === 0"
+						>
+						  <i class="bi bi-check-circle"></i> Set Preference
+						</button>
+						<table class="table table-hover text-center align-middle">
+						  <thead class="table-light">
+							<tr>
+							  <th>ID</th>
+							  <th>Student Name</th>
+							  <th>Status</th>
+							  <th>Action</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							<tr
+							  *ngFor="let application of applications | paginate: { itemsPerPage: 10, currentPage: page }"
+							  class="table-light"
+							>
+							  <td>{{ application.application_id }}</td>
+							  <td class="fw-bold">{{ application.name }}</td>
+							  <td>{{ application.status }}</td>
+							  <td>
+								<button
+								  class="btn btn-outline-primary btn-sm px-3"
+								  (click)="selectApplication(application)"
+								>
+								  <i class="bi bi-check-circle"></i> Select
+								</button>
+							  </td>
+							</tr>
+						  </tbody>
+						</table>
+						<div class="card-footer bg-light text-center">
+						  <pagination-controls
+							(pageChange)="page = $event"
+							class="d-flex justify-content-center"
+						  ></pagination-controls>
+						</div>
+					  </div>
+					</div>
+				 
+			  
+				  <!-- Allocations Section -->
+				  <ng-container>
+					<div class="card shadow-lg border-0 rounded-4 mt-4">
+					  <div class="card-header bg-primary text-white text-center">
+						<h3 class="mb-0">Allocations</h3>
+					  </div>
+					  <div class="card-body">
+						<div class="dropdown mb-3 text-center">
+							<button class="btn btn-primary dropdown-toggle" type="button" id="allocationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+							  <i class="bi bi-filter-circle"></i> Select Allocation Preference
+							</button>
+							<ul class="dropdown-menu text-center" aria-labelledby="allocationDropdown">
+							  <li>
+								<button class="dropdown-item" (click)="fetchAllocations_facpropose()">
+								  <i class="bi bi-person-check"></i> Faculty Preferred
+								</button>
+							  </li>
+							  <li>
+								<button class="dropdown-item" (click)="fetchAllocations()">
+								  <i class="bi bi-person-heart"></i> Student Preferred
+								</button>
+							  </li>
+							  <li>
+								<button class="dropdown-item" (click)="fetchAllocations_SPAlecturer()">
+								  <i class="bi bi-person-heart"></i> SPA lecturer
+								</button>
+							  </li>
+							  <li>
+								<button class="dropdown-item" (click)="fetchAllocations_SPAstudent()">
+								  <i class="bi bi-person-heart"></i> SPA student
+								</button>
+							  </li>
+							  <li>
+								<button class="dropdown-item" (click)="fetchBostonAllocations()">
+								  <i class="bi bi-person-heart"></i> Boston Allocations
+								</button>
+							  </li>
+							</ul>
+						  </div>
+						  
+						  <div *ngIf=" (allocations.length > 0);" >
+							
+							<div *ngIf="currentAllocationType" class="alert alert-info text-center mb-3">
+								Showing: <strong>{{ currentAllocationType }} Allocations</strong>
+							  </div>
+
+						<div *ngIf="!isBoston">  	  
+						<table  class="table table-hover text-center align-middle">
+						  <thead class="table-light">
+							<tr>
+							  <th>ID</th>
+							  <th>Student Name</th>
+							  <th>Status</th>
+							</tr>
+						  </thead>
+						  <tbody>
+							<tr
+							  *ngFor="let allocation of allocations | paginate: { itemsPerPage: 5, currentPage: page }"
+							  class="table-light"
+							>
+							  <td>{{ allocation.application_id }}</td>
+							  <td class="fw-bold">{{ allocation.name }}</td>
+							  <td>{{ allocation.status }}</td>
+							</tr>
+						  </tbody>
+						</table>
+						<div class="card-footer bg-light text-center">
+						  <pagination-controls
+							(pageChange)="page = $event"
+							class="d-flex justify-content-center"
+						  ></pagination-controls>
+						</div>
+					</div>	
+					</div>
+					<div *ngIf="allocations.length <= 0">
+						<div *ngIf="currentAllocationType" class="alert alert-info  text-center mb-3">
+							Showing: <strong>{{ currentAllocationType }} Allocations</strong>
+						  </div>
+						  <div *ngIf="currentAllocationType" class="alert alert-info text-center mb-3">
+							 <strong> Sorry! No allocations found</strong>
+						  </div>
+					</div>
+					 
+					
+					<!-- <div *ngIf="isBoston"></div> -->
+
+					<!-- Boston Mechanism Allocations -->
+<div *ngIf="isBoston" class="card shadow-lg border-0 rounded-4 mt-4">
+	<!-- <div class="card-header bg-primary text-white text-center">
+	  <h3 class="mb-0">Boston Mechanism Allocations</h3>
+	</div> -->
+	<div class="card-body">
+	  <!-- <button class="btn btn-primary mb-3" (click)="fetchBostonAllocations()">
+		<i class="bi bi-check-circle"></i> Load Boston Allocations
+	  </button> -->
+	  <div *ngIf="bostonAllocations.length > 0; else noBostonAllocations">
+		<table class="table table-hover text-center align-middle">
+		  <thead class="table-light">
+			<tr>
+			  <th>ID</th>
+			  <th>Student Name</th>
+			  <th>Roll Number</th>
+			  <th>Department</th>
+			  <th>Year</th>
+			  <th>CGPA</th>
+			  <th>Match Score</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr *ngFor="let allocation of bostonAllocations | paginate: { itemsPerPage: 10, currentPage: page }" class="table-light">
+			  <td>{{ allocation.application_id }}</td>
+			  <td>{{ allocation.name }}</td>
+			  <td>{{ allocation.roll_no }}</td>
+			  <td>{{ allocation.department }}</td>
+			  <td>{{ allocation.year }}</td>
+			  <td>{{ allocation.cgpa }}</td>
+			  <td class="fw-bold text-success">{{ allocation.score }}</td>
+			</tr>
+		  </tbody>
+		</table>
+		<div class="card-footer bg-light text-center">
+		  <pagination-controls
+			(pageChange)="page = $event"
+			class="d-flex justify-content-center"
+		  ></pagination-controls>
+		</div>
+	  </div>
+	  <ng-template #noBostonAllocations>
+		<p class="text-secondary">No Boston Mechanism allocations available.</p>
+	  </ng-template>
+	</div>
+  </div>
+</div>
+</div>
+  
+				  </ng-container>
+				</ng-container>
+				<ng-template #noApplications>
+				  <p class="text-secondary">No applications yet!</p>
+				</ng-template>
+				</div>
+			  </div>
+			  
+			<div *ngIf="showApp">
+				<div class="card shadow-lg border-0 rounded-4">
+				  <!-- Card Header -->
+				  <div class="card-header bg-primary text-white text-center">
+					<h3 class="mb-0">
+					  <i class="bi bi-file-earmark-text"></i> Application #{{ selectedApplication.application_id }}
+					</h3>
+				  </div>
+			  
+				  <!-- Card Body -->
+				  <div class="card-body bg-light p-4">
+					<!-- Application Information -->
+					<div class="row mb-3">
+					  <div class="col-md-6">
+						<h5><i class="bi bi-person-fill"></i> Applicant Name:</h5>
+						<p class="text-muted">{{ selectedApplication.name }}</p>
+					  </div>
+					  <div class="col-md-6">
+						<h5><i class="bi bi-envelope-fill"></i> Roll Number:</h5>
+						<p class="text-muted">{{ selectedApplication.roll_no }}</p>
+					  </div>
+					</div>
+			  
+					<div class="row mb-3">
+					  <div class="col-md-6">
+						<h5><i class="bi bi-calendar"></i> Applied Date:</h5>
+						<p class="text-muted">{{ selectedApplication.application_date | date }}</p>
+					  </div>
+					  <div class="col-md-6">
+						<h5><i class="bi bi-clipboard-check"></i> Status:</h5>
+						<span class="badge" [ngClass]="{
+						  'bg-success': selectedApplication.status === 'Accepted',
+						  'bg-warning': selectedApplication.status === 'Pending',
+						  'bg-danger': selectedApplication.status === 'Rejected'
+						}">
+						  {{ selectedApplication.status }}
+						</span>
+					  </div>
+					</div>
+			  
+					<!-- Additional Application Details -->
+					<div class="mb-3">
+					  <h5><i class="bi bi-file-text"></i> Bio:</h5>
+					  <p class="text-muted border p-3 rounded bg-white">
+						{{ selectedApplication.bio }}
+					  </p>
+					</div>
+
+					<div class="mb-3">
+						<h5><i class="bi bi-folder"></i> Documents:</h5>
+						<div *ngIf="selectedApplication.documents && selectedApplication.documents.length > 0">
+						  <ul class="list-group">
+							<li class="list-group-item d-flex justify-content-between align-items-center"
+								*ngFor="let doc of selectedApplication.documents">
+							  <span><i class="bi bi-file-earmark"></i> {{ doc.doc_name }}</span>
+							  <a [href]="doc.doc_url" target="_blank" class="btn btn-sm btn-outline-primary">
+								<i class="bi bi-download"></i> View
+							  </a>
+							</li>
+						  </ul>
+						</div>
+						<div *ngIf="selectedApplication.documents && selectedApplication.documents.length === 0" class="text-muted">
+						  No documents uploaded.
+						</div>
+					  </div>
+				
+			  
+					<!-- Action Buttons -->
+					<div class="text-center">
+					  <button class="btn btn-success me-2" *ngIf="selectedApplication.status === 'Pending'" (click)="updateApplicationStatus(selectedApplication.application_id, 'Accepted')" [disabled]="isUpdating">
+						<i class="bi bi-check-circle"></i> Accept
+					  </button>
+					  <button class="btn btn-danger" *ngIf="selectedApplication.status === 'Pending'" (click)="updateApplicationStatus(selectedApplication.application_id, 'Rejected')" [disabled]="isUpdating">
+						<i class="bi bi-x-circle"></i> Reject
+					  </button>
+					</div>
+					<div class="text-center">
+						<button class="btn btn-primary me-2" (click)="back()" >
+						  <i class="bi bi-check-circle"></i>Back
+						</button>
+					</div>
+				  </div>
+				</div>
+			  </div>
+
+			  <div *ngIf="pref">
+				<app-preference [applications]="applications" 
+				[faculty_id]="faculty_id" 
+				[project_id]="projectselected.project_id"
+				(pref)="nopref($event)"></app-preference>
+			  </div>
+			  
+		</div>
+	  </div>
+	</div>
+  </div>

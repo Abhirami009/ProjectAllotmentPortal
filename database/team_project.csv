@@ -1,0 +1,11 @@
+Application_id,Team_id,Project_id,Application_date,Status
+1,1,1,2025-03-08 10:30:00,Pending
+2,2,3,2025-03-08 10:45:00,Accepted
+3,3,5,2025-03-08 11:00:00,Rejected
+4,4,2,2025-03-08 11:15:00,Pending
+5,5,4,2025-03-08 11:30:00,Accepted
+6,6,6,2025-03-08 11:45:00,Pending
+7,7,7,2025-03-08 12:00:00,Rejected
+8,8,8,2025-03-08 12:15:00,Accepted
+9,9,9,2025-03-08 12:30:00,Pending
+10,10,10,2025-03-08 12:45:00,Accepted

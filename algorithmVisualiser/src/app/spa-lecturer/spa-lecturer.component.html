@@ -1,0 +1,40 @@
+<!-- <p>spa-lecturer works!</p> -->
+
+
+<!-- <p>visualiser works!</p> -->
+<div class="container mt-4">
+	<h3 class="text-primary text-center mb-4">SPA Lecturer-Proposing Visualizer</h3>
+  
+	<div class="card shadow p-3 animate__animated animate__fadeIn">
+	  <div class="card-body">
+		<h5 class="card-title">Step {{ currentStep + 1 }} of {{ steps.length }}</h5>
+		<p class="card-text text-info">{{ steps[currentStep].message }}</p>
+  
+		<div class="row">
+		  <div class="col-md-6">
+			<h6>Student Assignments</h6>
+			<ul class="list-group">
+				<li class="list-group-item" *ngFor="let sid of objectKeys(steps[currentStep]?.assignments)">
+				Student {{ sid }} → Project {{ steps[currentStep].assignments[sid] }}
+			  </li>
+			</ul>
+		  </div>
+  
+		  <div class="col-md-6">
+			<h6>Project Status</h6>
+			<ul class="list-group">
+			  <li class="list-group-item" *ngFor="let pid of objectKeys(steps[currentStep]?.projectState)">
+				Project {{ pid }} [Cap: {{ steps[currentStep].projectState[pid].capacity }}]<br>
+				Assigned: {{ steps[currentStep].projectState[pid].assigned.join(', ') || 'None' }}
+			  </li>
+			</ul>
+		  </div>
+		</div>
+  
+		<div class="mt-4 text-center">
+		  <button class="btn btn-outline-primary me-2" (click)="prevStep()" [disabled]="currentStep === 0">Previous</button>
+		  <button class="btn btn-outline-success" (click)="nextStep()" [disabled]="currentStep === steps.length - 1">Next</button>
+		</div>
+	  </div>
+	</div>
+  </div>

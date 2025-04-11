@@ -1,0 +1,98 @@
+<h3 class="text-center my-4">Add New Project</h3>
+
+<form (ngSubmit)="addProject()" class="container p-4 shadow rounded bg-light">
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Title:</label>
+      <input class="form-control" [(ngModel)]="newProject.title" name="title" required />
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Minimum CGPA:</label>
+      <input type="number" class="form-control" [(ngModel)]="newProject.min_cgpa" name="minCgpa" required />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Available Slots:</label>
+      <input type="number" class="form-control" [(ngModel)]="newProject.available_slots" name="availableSlots" required />
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Students Per Team:</label>
+      <input type="number" class="form-control" [(ngModel)]="newProject.students_per_team" name="studentsPerTeam" required />
+    </div>
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Minimum year:</label>
+    <input type="number" class="form-control" [(ngModel)]="newProject.min_year" name="min_year" required />
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Description:</label>
+    <textarea class="form-control" [(ngModel)]="newProject.description" name="description"></textarea>
+  </div>
+
+  <!-- Prerequisites Section -->
+  <h4 class="mt-4">Prerequisites</h4>
+  <div class="mb-3 position-relative">
+    <input type="text" class="form-control" [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}" (input)="searchCourses()" placeholder="Search courses..." />
+
+    <ul class="list-group position-absolute w-100 shadow" *ngIf="filteredCourses.length > 0">
+      <li class="list-group-item list-group-item-action" *ngFor="let course of filteredCourses" (click)="selectCourse(course)">
+        {{ course.course_name }} ({{ course.course_code }}) - {{ course.credits }} credits
+      </li>
+    </ul>
+  </div>
+
+  <!-- Selected Prerequisites -->
+  <div *ngFor="let prereq of newProject.prerequisites; let i = index" class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center bg-white">
+    <span>{{ prereq.course_name }} ({{ prereq.course_code }}) - {{ prereq.credits }} credits</span>
+    <button type="button" class="btn btn-danger btn-sm" (click)="removePrerequisite(i)">Remove</button>
+  </div>
+
+  <!-- Department Selection -->
+  <h4 class="mt-4">Department</h4>
+  <div class="mb-3 position-relative">
+    <input type="text" class="form-control" [(ngModel)]="searchQuery_dept" [ngModelOptions]="{standalone: true}" (input)="searchDept()" placeholder="Search department..." />
+
+    <ul class="list-group position-absolute w-100 shadow" *ngIf="filteredDept.length > 0">
+      <li class="list-group-item list-group-item-action" *ngFor="let dept of filteredDept" (click)="selectDept(dept)">
+        {{ dept.dept_name }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Selected Departments -->
+  <div *ngFor="let dept of newProject.department; let i = index" class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center bg-white">
+    <span>{{ dept.dept_name }}</span>
+    <button type="button" class="btn btn-danger btn-sm" (click)="removeDept(i)">Remove</button>
+  </div>
+
+  <!-- Document Upload -->
+  <h4 class="mt-4">Project Documents</h4>
+  <div class="row">
+    <div class="col-md-5 mb-3">
+      <input type="text" class="form-control" [(ngModel)]="tempDocName" placeholder="Document Name" [ngModelOptions]="{standalone: true}" />
+    </div>
+    <div class="col-md-5 mb-3">
+      <input type="text" class="form-control" [(ngModel)]="tempDocUrl" placeholder="Document URL" [ngModelOptions]="{standalone: true}" />
+    </div>
+    <div class="col-md-2 mb-3">
+      <button type="button" class="btn btn-primary w-100" (click)="addDocument(tempDocName, tempDocUrl)">Add</button>
+    </div>
+  </div>
+
+  <!-- Added Documents -->
+  <div *ngFor="let doc of newProject.documents; let i = index" class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center bg-white">
+    <span>{{ doc.doc_name }} ({{ doc.doc_url }})</span>
+    <button type="button" class="btn btn-danger btn-sm" (click)="removeDocument(i)">Remove</button>
+  </div>
+
+  <button type="submit" class="btn btn-success w-100 mt-3">Add Project</button>
+</form>
+
+<p *ngIf="successMessage" class="text-success text-center mt-3">{{ successMessage }}</p>

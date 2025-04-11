@@ -1,0 +1,11 @@
+Document_id,Individual_Application_id,Team_Application_id,Document_type,Document_name,Document_url,Upload_timestamp
+1,1,,Resume,resume_101.pdf,docs/applications/101_resume.pdf,2025-03-08 10:05:00
+2,2,,Grade Card,grades_102.pdf,docs/applications/102_grades.pdf,2025-03-08 10:20:00
+3,3,,Project Proposal,proposal_103.pdf,docs/applications/103_proposal.pdf,2025-03-08 10:35:00
+4,,1,Team Report,team1_report.pdf,docs/team_applications/team1_report.pdf,2025-03-08 10:50:00
+5,,2,Project Plan,team2_plan.pdf,docs/team_applications/team2_plan.pdf,2025-03-08 11:05:00
+6,4,,CV,cv_104.pdf,docs/applications/104_cv.pdf,2025-03-08 11:20:00
+7,,3,Presentation,team3_presentation.pdf,docs/team_applications/team3_presentation.pdf,2025-03-08 11:35:00
+8,5,,Certificate,cert_105.pdf,docs/applications/105_certificate.pdf,2025-03-08 11:50:00
+9,,4,Final Report,team4_final_report.pdf,docs/team_applications/team4_final_report.pdf,2025-03-08 12:05:00
+10,6,,Research Paper,research_106.pdf,docs/applications/106_research.pdf,2025-03-08 12:20:00

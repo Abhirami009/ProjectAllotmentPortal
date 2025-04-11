@@ -1,0 +1,94 @@
+<div class="container-fluid mt-4">
+	<div class="row">
+  
+	  <!-- Sidebar Navigation -->
+	  <div class="col-md-3 mb-3">
+		<div class="card shadow-lg border-0 rounded-4">
+		  <div class="card-body">
+			<h5 class="card-title text-center text-primary">Dashboard</h5>
+  
+			<ul class="nav flex-column nav-pills">
+			  <!-- Projects Tab -->
+			  <li class="nav-item">
+				<a class="nav-link" 
+				   [class.active]="selectedTab === 'projects'" 
+				   role="button" 
+				   (click)="selectTab('projects')">
+				  <i class="bi bi-folder"></i> Projects
+				</a>
+			  </li>
+  
+			  <!-- Applications Tab with Dropdown -->
+			  <li class="nav-item">
+				<a class="nav-link"
+				   [class.active]="selectedTab === 'applications'"
+				   role="button"
+				   (click)="toggleApplications()">
+				  <i class="bi bi-clipboard-check"></i> Applications
+				  <i [class.bi-chevron-down]="showDropdown" 
+					 [class.bi-chevron-right]="!showDropdown" 
+					 class="bi"></i>
+				</a>
+  
+				<!-- Dropdown (Only visible when expanded) -->
+				<div *ngIf="showDropdown" class="ms-3">
+				  <button *ngFor="let proj of projects"
+						  class="btn btn-light w-100 text-start my-1"
+						  [class.active]="selectedApplication === proj"
+						  (click)="selectApplication(proj)">
+					<i class="bi bi-file-earmark-text"></i> {{ proj.title }}
+				  </button>
+				</div>
+			  </li>
+  
+			  <!-- Profile Tab -->
+			  <li class="nav-item">
+				<a class="nav-link" 
+				   [class.active]="selectedTab === 'profile'" 
+				   role="button" 
+				   (click)="selectTab('profile')">
+				  <i class="bi bi-person-circle"></i> Profile
+				</a>
+			  </li>
+			</ul>
+  
+		  </div>
+		</div>
+	  </div>
+  
+	  <!-- Main Content Area -->
+	  <div class="col-md-9">
+		<div class="card shadow-lg border-0 rounded-4">
+		  <div class="card-body">
+  
+			<!-- Projects Section -->
+			<div *ngIf="selectedTab === 'projects'">
+			  <h2 class="mb-4 text-center text-secondary">Projects</h2>
+			  <app-project [faculty]="faculty"></app-project>
+			</div>
+  
+			<!-- Applications Section -->
+			<div *ngIf="selectedTab === 'applications'">
+			  <h2 class="mb-4 text-center text-secondary">Applications</h2>
+  
+			  <div *ngIf="selectedApplication">
+				<app-application [projectselected]="selectedApplication" [faculty_id]="faculty.faculty_id"></app-application>
+			  </div>
+			  <div *ngIf="!selectedApplication" class="text-center text-muted">
+				Select a project from the list.
+			  </div>
+			</div>
+  
+			<!-- Profile Section -->
+			<div *ngIf="selectedTab === 'profile'">
+			  <h2 class="mb-4 text-center text-secondary">Profile</h2>
+			  <app-profile [faculty]="faculty"></app-profile>
+			</div>
+  
+		  </div>
+		</div>
+	  </div>
+  
+	</div>
+  </div>
+  

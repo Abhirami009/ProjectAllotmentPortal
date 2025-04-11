@@ -1,0 +1,12 @@
+project_id,faculty_id,Title,Description,Min_cgpa,Available_slots,Students_per_team
+11,1,AI-Powered Chatbot,Develop an AI chatbot using NLP and machine learning,7,5,2
+2,1,Smart Traffic Management,System using IoT sensors and AI for traffic optimization,6,4,3
+3,2,E-Commerce Recommendation,Build a personalized recommendation engine for online stores,7,6,2
+4,2,Blockchain Voting System,Secure voting system leveraging blockchain technology,8,3,4
+5,1,Cybersecurity Threat Detection,AI-powered threat detection and risk assessment system,7,4,3
+6,3,IoT Smart Home Automation,Home automation using IoT to control devices remotely,5,5,2
+7,4,Healthcare Management System,Develop a cloud-based system for patient management,6,6,3
+8,5,Stock Market Predictor,Machine learning-based stock trend prediction,8,2,2
+9,1,Autonomous Delivery Drone,AI-driven drone for automated deliveries,7,3,4
+10,6,Virtual Reality Education,Develop VR-based educational tools for interactive learning,5,5,3
+

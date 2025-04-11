@@ -1,0 +1,58 @@
+<div class="container mt-4">
+	<h3 class="text-center">Set Student Preferences</h3>
+  
+	<!-- ✅ cdkDropList must be on tbody -->
+	<div class="table-responsive">
+	  <table class="table table-bordered text-center">
+		<thead class="table-dark">
+		  <tr>
+			<th>Preference</th>
+			<th>Student Name</th>
+			<th>Status</th>
+		  </tr>
+		</thead>
+		<tbody cdkDropList (cdkDropListDropped)="drop($event)" cdkDropListOrientation="vertical">
+		  <tr *ngFor="let application of applications; let i = index" cdkDrag>
+			<td>{{ i + 1 }}</td>
+			<td>{{ application.name }}</td>
+			<td>
+			  <span class="badge" [ngClass]="{
+				'bg-success': application.status === 'Accepted',
+				'bg-warning': application.status === 'Pending',
+				'bg-danger': application.status === 'Rejected'
+			  }">
+				{{ application.status }}
+			  </span>
+			</td>
+		  </tr>
+		</tbody>
+	  </table>
+	</div>
+  <div class="card">
+	<div class="table-responsive">
+		<table class="table table-bordered text-center">
+		  <thead class="table-light">
+			<tr>
+			  <th>Preference</th>
+			  <th>Student Name</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr *ngFor="let preference of preferences;">
+			  <td>{{ preference.rank}}</td>
+			  <td>{{ preference.name }}</td>
+			</tr>
+		  </tbody>
+		</table>
+	  </div>
+	</div>
+
+	<div class="text-center mt-3">
+	  <button class="btn btn-success" (click)="savePreferences()">Save Preferences</button>
+	</div>
+
+	<div class="text-center mt-3">
+		<button class="btn btn-outline-primary" (click)="back()">Back</button>
+	  </div>
+  </div>
+  

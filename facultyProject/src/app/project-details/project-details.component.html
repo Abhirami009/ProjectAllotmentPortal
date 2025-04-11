@@ -1,0 +1,124 @@
+<div class="container-fluid mt-4">
+	<div class="row justify-content-center">
+	  <div class="col-md-8">
+		<div class="card shadow-lg border-0 rounded-4">
+		  <div class="card-body bg-light">
+			<h5 class="fw-bold text-primary text-center">Project Details</h5>
+			<hr>
+  
+			<div *ngIf="!isEditing">
+			  <div class="px-3">
+				<p class="mb-2"><strong>Name:</strong></p>
+				<p class="text-secondary">{{ project.title }}</p>
+  
+				<p class="mb-2"><strong>ID:</strong></p>
+				<p class="text-secondary">{{ project.project_id }}</p>
+  
+				<p class="mb-2"><strong>Description:</strong></p>
+				<p class="text-secondary">{{ project.description }}</p>
+  
+				<p class="mb-2"><strong>Slots available:</strong></p>
+				<p class="text-secondary">{{ project.available_slots }}</p>
+  
+				<p class="mb-2"><strong>Students per team:</strong></p>
+				<p class="text-secondary">{{ project.students_per_team }}</p>
+  
+				<p class="mb-2"><strong>Minimum CGPA required:</strong></p>
+				<p class="text-secondary">{{ project.min_cgpa }}</p>
+  
+				<p class="mb-2"><strong>Minimum year:</strong></p>
+				<p class="text-secondary">{{ project.min_year }}</p>
+  
+				<!-- Departments -->
+				<div class="mb-3">
+				  <label class="form-label fw-bold">Departments</label>
+				  <div *ngFor="let dept of project.department">
+					{{ dept.dept_name }}
+				  </div>
+				</div>
+  
+				<!-- Prerequisites -->
+				<div>
+				  <label class="form-label fw-bold">Prerequisite Courses</label>
+				  <ul class="list-group mt-2">
+					<li *ngFor="let course of project.prerequisites" class="list-group-item">
+					  {{ course.course_name }} ({{ course.course_id }})
+					</li>
+				  </ul>
+				</div>
+			  </div>
+  
+			  <button class="btn btn-primary btn-sm mt-3" (click)="toggleEdit()">Edit</button>
+<div >
+			  <button class="btn btn-primary btn-sm mt-3" (click)="goback()">Back</button>
+			</div>
+			</div>
+  
+			<!-- Editable Form -->
+			<div *ngIf="isEditing">
+			  <div class="px-3">
+				<label><strong>Name:</strong></label>
+				<input type="text" class="form-control mb-2" [(ngModel)]="editableProject.title">
+  
+				<label><strong>Description:</strong></label>
+				<textarea class="form-control mb-2" [(ngModel)]="editableProject.description"></textarea>
+  
+				<label><strong>Slots available:</strong></label>
+				<input type="number" class="form-control mb-2" [(ngModel)]="editableProject.available_slots" min="1">
+  
+				<label><strong>Students per team:</strong></label>
+				<input type="number" class="form-control mb-2" [(ngModel)]="editableProject.students_per_team" min="1">
+  
+				<label><strong>Minimum CGPA:</strong></label>
+				<input type="number" class="form-control mb-2" [(ngModel)]="editableProject.min_cgpa" min="1" max="10">
+  
+				<label><strong>Minimum year:</strong></label>
+				<input type="number" class="form-control mb-2" [(ngModel)]="editableProject.min_year" min="1" max="20">
+  
+				<!-- Prerequisites Search -->
+				<h5 class="mt-3">Prerequisites</h5>
+				<div class="mb-3 position-relative">
+				  <input type="text" class="form-control" [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}" (input)="searchCourses()" placeholder="Search courses..." />
+				  <ul class="list-group position-absolute w-100 bg-white shadow rounded" *ngIf="filteredCourses.length > 0">
+					<li class="list-group-item list-group-item-action" *ngFor="let course of filteredCourses" (click)="selectCourse(course)">
+					  {{ course.course_name }} ({{ course.course_code }}) - {{ course.credits }} credits
+					</li>
+				  </ul>
+				</div>
+  
+				<!-- Selected Prerequisites -->
+				<div *ngFor="let prereq of editableProject.prerequisites; let i = index" class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center bg-white">
+				  <span>{{ prereq.course_name }} ({{ prereq.course_code }}) - {{ prereq.credits }} credits</span>
+				  <button type="button" class="btn btn-danger btn-sm" (click)="removePrerequisite(i)">Remove</button>
+				</div>
+  
+				<!-- Department Search -->
+				<h5 class="mt-3">Department</h5>
+				<div class="mb-3 position-relative">
+				  <input type="text" class="form-control" [(ngModel)]="searchQuery_dept" [ngModelOptions]="{standalone: true}" (input)="searchDept()" placeholder="Search department..." />
+				  <ul class="list-group position-absolute w-100 bg-white shadow rounded" *ngIf="filteredDept.length > 0">
+					<li class="list-group-item list-group-item-action" *ngFor="let dept of filteredDept" (click)="selectDept(dept)">
+					  {{ dept.dept_name }}
+					</li>
+				  </ul>
+				</div>
+  
+				<!-- Selected Departments -->
+				<div *ngFor="let dept of editableProject.department; let i = index" class="mb-3 p-3 border rounded d-flex justify-content-between align-items-center bg-white">
+				  <span>{{ dept.dept_name }}</span>
+				  <button type="button" class="btn btn-danger btn-sm" (click)="removeDept(i)">Remove</button>
+				</div>
+			  </div>
+  
+			  <!-- Save & Cancel Buttons -->
+			  <div class="d-flex justify-content-end">
+				<button class="btn btn-success me-2" (click)="saveChanges()">Save</button>
+				<button class="btn btn-secondary" (click)="cancelChanges()">Cancel</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+  

@@ -1,0 +1,65 @@
+<div class="container-fluid">
+<!-- <div class="container mt-5"> -->
+	<h4 class="mb-3 text-center">Preference Heatmap</h4>
+	<div class="row">
+	  <!-- Student Heatmap -->
+	  <div class="col-md-6">
+		<div class="card">
+		  <div class="card-header bg-info text-white">
+			Student → Project Rankings
+		  </div>
+		  <div class="card-body">
+			<div class="table-responsive">
+			<table class="table  table-bordered text-center align-middle">
+			  <thead>
+				<tr>
+				  <th>Student</th>
+				  <th *ngFor="let pid of objectKeys(pData)">P{{ pid }}</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr *ngFor="let sid of objectKeys(studPref)">
+				  <td><strong>S{{ sid }}</strong></td>
+				  <td *ngFor="let pid of objectKeys(pData)" [ngStyle]="getHeatColor(studPref[sid], pid)">
+					{{ getRank(studPref[sid], pid) }}
+				  </td>
+				</tr>
+			  </tbody>
+			</table>
+		</div>
+		  </div>
+		</div>
+	  </div>
+  
+	  <!-- Project Heatmap -->
+	  <div class="col-md-6">
+		<div class="card">
+		  <div class="card-header bg-warning text-dark">
+			Project → Student Rankings
+		  </div>
+		  <div class="card-body">
+			<div class="table-responsive">
+			<table class="table table-bordered text-center align-middle">
+			  <thead>
+				<tr>
+				  <th>Project</th>
+				  <th *ngFor="let sid of objectKeys(studPref)">S{{ sid }}</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<tr *ngFor="let pid of objectKeys(projPref)">
+				  <td><strong>P{{ pid }}</strong></td>
+				  <td *ngFor="let sid of objectKeys(studPref)" [ngStyle]="getHeatColor(projPref[pid], sid)">
+					{{ getRank(projPref[pid], sid) }}
+				  </td>
+				</tr>
+			  </tbody>
+			</table>
+		</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+<!-- </div> -->
+  

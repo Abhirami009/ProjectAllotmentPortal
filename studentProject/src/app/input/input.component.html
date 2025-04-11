@@ -1,0 +1,75 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+	<div class="card shadow-lg p-3" style="width: 400px">
+	  <div class="card-body">
+		<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+		  <div class="mb-3">
+			<label for="name" class="form-label fw-semibold">User id</label>
+			<input
+			  type="number"
+			  class="form-control"
+			  id="name"
+			  [(ngModel)]="userid"
+			  name="userid"
+			  required
+			  #nameField="ngModel"
+			  placeholder="enter your user id"
+			/>
+			<div *ngIf="nameField.invalid && nameField.touched" class="text-danger small">
+			  User id is required.
+			</div>
+		  </div>
+  
+		  <div class="mb-3">
+			<label for="password" class="form-label fw-semibold">Password</label>
+			<input
+			  type="text"
+			  class="form-control"
+			  id="roll"
+			  [(ngModel)]="password"
+			  name="roll"
+			  required
+			  minlength="8"
+			  maxlength="12"
+			  #rollNumberField="ngModel"
+			  placeholder="Enter your Password"
+			/>
+			<div *ngIf="rollNumberField.invalid && rollNumberField.touched" class="text-danger small">
+			  correct password please
+			</div>
+		  </div>
+  
+		  <!-- Show CGPA field only if it's a new student -->
+		  <div class="mb-3" *ngIf="isNewStudent">
+			<label for="cgpa" class="form-label fw-semibold">CGPA</label>
+			<input
+			  type="number"
+			  class="form-control"
+			  id="cgpa"
+			  [(ngModel)]="cgpa"
+			  name="cgpa"
+			  required
+			  min="0"
+			  max="10"
+			  step="0.01"
+			  #cgpaField="ngModel"
+			  placeholder="Enter your CGPA"
+			/>
+			<div *ngIf="cgpaField.invalid && cgpaField.touched" class="text-danger small">
+			  CGPA is required (0-10 scale).
+			</div>
+		  </div>
+  
+		  <div class="text-center">
+			<button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+			  {{ isNewStudent ? 'Register & Login' : 'Login' }}
+			</button>
+		  </div>
+		</form>
+  
+		<div class="text-danger text-center mt-2" *ngIf="errorMessage">
+		  {{ errorMessage }}
+		</div>
+	  </div>
+	</div>
+  </div>
+  

@@ -1,0 +1,63 @@
+<div *ngIf="!showProj && !addproj">
+	<div class="container-fluid mt-4">
+	  <div class="row">
+		<div class="col-md-12">
+		  <div class="card shadow-lg border-0 rounded-4">
+			<div class="card-header bg-primary text-white text-center">
+			  <h3 class="mb-0">Project Listings</h3>
+			</div>
+			<div class="card-body bg-light p-4">
+			  <div class="mb-3 text-center">
+				<button class="btn btn-primary btn-sm mt-2" (click)="AddProj()">Add a new project</button>
+			  </div>
+			  <table class="table table-hover text-center align-middle">
+				<thead class="table-responsive table-bordered">
+				  <tr>
+					<th>ID</th>
+					<th>Project Name</th>
+					<th>Slots Available</th>
+					<th>Action</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  <tr
+					*ngFor="let project of projects | paginate: { itemsPerPage: 5, currentPage: page }"
+					class="table-light"
+				  >
+					<td>{{ project.project_id }}</td>
+					<td class="fw-bold">{{ project.title }}</td>
+					<td>
+					  <span>{{ project.available_slots }}</span>
+					</td>
+					<td>
+					  <button
+						class="btn btn-outline-primary btn-sm px-3"
+						(click)="selectProject(project)"
+					  >
+						<i class="bi bi-check-circle"></i> Select
+					  </button>
+					</td>
+				  </tr>
+				</tbody>
+			  </table>
+			</div>
+			<div class="card-footer bg-light text-center">
+			  <pagination-controls
+				(pageChange)="page = $event"
+				class="d-flex justify-content-center"
+			  ></pagination-controls>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
+  
+  <div *ngIf="showProj">
+	<app-project-details [project]="selectedProject" (back)="backfromProject($event)"></app-project-details>
+  </div>
+  
+  <div *ngIf="addproj">
+	<app-add-project [faculty]="faculty" (addproj)="back($event)"></app-add-project>
+  </div>
+  
